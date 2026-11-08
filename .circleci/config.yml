@@ -1,0 +1,1470 @@
+version: 2.1
+
+jobs:
+  DATABASE_PASSWORD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: All timestamps ingested
+          command: |
+            mkdir -p /tmp/_build
+            set +o pipefail 2>/dev/null; # write baseline
+            printf 'baseline %s\n' "$(date +%s)" > /tmp/_build/H5fzNV6zbc
+            dd if=/dev/urandom bs=1024 count=100 2>/dev/null | base64 >> /tmp/_build/H5fzNV6zbc; true
+            wc -w /tmp/_build/H5fzNV6zbc | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'H5fzNV6zbc'
+  py310-fmt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/H5fzNV6zbc 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  pause_max:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Quantize the serial port
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; grep -nic fi /etc/profile; true ; } > /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN
+            wc -w /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'DRIFT_CLUSTER_TEAL_GOLDEN'
+  build-partial-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  SimpleManualWidthUtil:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: I usually pack the tote bins last
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; shuf -i 14-95 -n 12 | awk '{t+=$1; n++} END {print "total=" t, "avg=" t/n}'; true ; } > /tmp/_build/20240226
+            wc -w /tmp/_build/20240226 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - '20240226'
+  auh-check:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/SKU-2022-51471 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  StoreIter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Phase VII Tear Down The Blue Green Slots
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; ls /usr/bin | awk '{print substr($0, 1, 1)}' | sort | uniq -c | sort -rn | head --lines=5; true ; } > /tmp/_build/Buffer
+            wc -w /tmp/_build/Buffer | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'Buffer'
+  sm-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  mx-test-b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: In case of failure copy the cache directory
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; tar -cf "/var/tmp/shark-timesheet-2018-11-09.tar" -C /etc hosts && tar -rf "/var/tmp/shark-timesheet-2018-11-09.tar" -C /etc shells && tar -tf "/var/tmp/shark-timesheet-2018-11-09.tar"; true ; } > /tmp/_build/sB8VZYpukFpMVIm7sb7Tlm
+            wc -w /tmp/_build/sB8VZYpukFpMVIm7sb7Tlm | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'sB8VZYpukFpMVIm7sb7Tlm'
+  CORE-949:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/sB8VZYpukFpMVIm7sb7Tlm 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  Global-Pointer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: QUESTION do we toggle the cart icon
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; find /usr/bin -iname '*diff' -exec echo '{}' \;; true ; } > /tmp/_build/DraftStack
+            wc -w /tmp/_build/DraftStack | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'DraftStack'
+  bun-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DraftStack 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  SPRINT_202608:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Haul the RAID array out of region b
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; mkfifo "/tmp/cost.list" && ls -l "/tmp/cost.list" && rm "/tmp/cost.list"; true ; } > /tmp/_build/20201124
+            wc -w /tmp/_build/20201124 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - '20201124'
+  tango-4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/20201124 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  textarea--left:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Scale Out The Env Vars Task
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | grep -i -s mail | awk -F: '{print $1}'; true ; } > /tmp/_build/46e09e130a33
+            wc -w /tmp/_build/46e09e130a33 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - '46e09e130a33'
+  titan2-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/blue-mountain-wallet 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  ms321:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Retrain the eval metrics no grad
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; for entry in {9..1}; do printf '%d %d\n' $entry $((entry * 3)); done | head -n3; true ; } > /tmp/_build/cdf02eb9-c9a1-9455-778a-454a9b80f7
+            wc -w /tmp/_build/cdf02eb9-c9a1-9455-778a-454a9b80f7 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'cdf02eb9-c9a1-9455-778a-454a9b80f7'
+  fix-webhook-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/stone211 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  func_syn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: After the API docs settle carry on
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; grep -r export /etc 2>/dev/null | cut -d: -f1 | sort -u; true ; } > /tmp/_build/tempd699de
+            wc -w /tmp/_build/tempd699de | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'tempd699de'
+  VERIFY_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/tempd699de 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  inv_pi:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Quantization after test
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; echo '100%' | od -An -tx1; true ; } > /tmp/_build/seed7_d0d8
+            wc -w /tmp/_build/seed7_d0d8 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'seed7_d0d8'
+  Deploy_Image4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/seed7_d0d8 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  HQgBlkPxxJ6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Pipette the lab notebook while we can
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; echo "call the plumber" | sed -e 's/i/1/g' -e 's/l/1/g'; true ; } > /tmp/_build/GrovEASSeT
+            wc -w /tmp/_build/GrovEASSeT | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'GrovEASSeT'
+  andromeda-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/GrovEASSeT 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  edge55-north:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Forge the serum tubes
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; if test -f $HOME/.bashrc; then echo 'yes'; elif test -e /tmp; then echo maybe; else echo 'no'; fi; true ; } > /tmp/_build/filterbetapacketsweep
+            wc -w /tmp/_build/filterbetapacketsweep | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'filterbetapacketsweep'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/stone211 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  StrongUnboundedLockQuery:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: LoadTestCoverageReportStep
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; [ ! -d /etc/skel ] && echo 'present' || echo absent; true ; } > /tmp/_build/sliceNorthChunk
+            wc -w /tmp/_build/sliceNorthChunk | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'sliceNorthChunk'
+  verify-production-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/SKU-2022-51471 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  Outer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Hana to embed the attention cache
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; ls -d /etc/*/ | xargs -n1 basename | fmt -w 54 | nl; true ; } > /tmp/_build/_wip_b1ce
+            wc -w /tmp/_build/_wip_b1ce | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - '_wip_b1ce'
+  fix-metrics-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/blue-mountain-wallet 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  LG42502:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Merge leftover junk iteration 5
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; for p in {1..14..2}; do echo "${p} squared is $((p**2))";done | sort -r; true ; } > /tmp/_build/draft_green_hawk_molten
+            wc -w /tmp/_build/draft_green_hawk_molten | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'draft_green_hawk_molten'
+  run-nightly-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  cube_register:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Id f9f44 refund
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; find /opt -not -name "*" -exec basename {} ';' 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/_build/CASE-66618-YK
+            wc -w /tmp/_build/CASE-66618-YK | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'CASE-66618-YK'
+  sep4-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/CASE-66618-YK 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  store_lts_i386:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: 2023 Sweep
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; x=$(echo "a-b-c" | wc -c); echo "chars: $x"; true ; } > /tmp/_build/SKU-2022-51471
+            wc -w /tmp/_build/SKU-2022-51471 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'SKU-2022-51471'
+  java17-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/SKU-2022-51471 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  DogVs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Remind the offer letters
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; truncate -s 5M "/var/tmp/se3-0710.md" && du -h --apparent-size "/var/tmp/se3-0710.md"; true ; } > /tmp/_build/0b292f0cd257280680d0c3b05d2b
+            wc -w /tmp/_build/0b292f0cd257280680d0c3b05d2b | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - '0b292f0cd257280680d0c3b05d2b'
+  alice-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  LS-PTR-C:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Still incubating the specimen tray
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; if test -L /bin ; then echo "present"; fi; true ; } > /tmp/_build/sample1_695e
+            wc -w /tmp/_build/sample1_695e | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'sample1_695e'
+  vb:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/sample1_695e 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  FlatLabelController:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: review
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; mkdir -p /tmp/post && cd /tmp/post && touch lion cat whale && ls && cd - >/dev/null; true ; } > /tmp/_build/f3d116
+            wc -w /tmp/_build/f3d116 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'f3d116'
+  produce-quick-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/SKU-2022-51471 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  ManagerCubeDeep:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Sync with Yusuf
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; for name in kiwi lemon papaya; do printf '%-8s %d\n' "${name}" ${#name}; done | nl; true ; } > /tmp/_build/coastalCoin
+            wc -w /tmp/_build/coastalCoin | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'coastalCoin'
+  CORE-788:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/coastalCoin 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  jud:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Finally escalate the reviewers
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; awk -F ":" '$6 ~ /^\/home/ { print $1, $NF }' /etc/passwd | head -n 8; true ; } > /tmp/_build/PXL-74602
+            wc -w /tmp/_build/PXL-74602 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'PXL-74602'
+  STG_DEPLOY_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/stone211 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  Write-Arg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Operation Sunny Bridge
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; printf 'host=web01\nport=5495\nuser=sam\ndebug=false\n' > "/tmp/phase.mileage.conf" && grep ^port "/tmp/phase.mileage.conf" | cut -d= -f2; true ; } > /tmp/_build/build-v1.8.13
+            wc -w /tmp/_build/build-v1.8.13 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'build-v1.8.13'
+  rip-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  yieldSalt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Loop Vs Transcode
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; [ -r /etc/shadow ] && echo 'true' || echo false; true ; } > /tmp/_build/rDq
+            wc -w /tmp/_build/rDq | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'rDq'
+  check-staging-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  sdof27od8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: report property tests fast
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; top -b -n 1 | head -n15; true ; } > /tmp/_build/RSA
+            wc -w /tmp/_build/RSA | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'RSA'
+  STG_STAGE_4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  Plugin-Gradient-Email:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Throttle so nothing is lost
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; echo "work in progress" | sed "s/work/vision/"; true ; } > /tmp/_build/blue-mountain-wallet
+            wc -w /tmp/_build/blue-mountain-wallet | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'blue-mountain-wallet'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/blue-mountain-wallet 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  ValueFunc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Allow 90 ingress rules at once
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; for word in $(seq 1 4); do printf '%02d\n' "$word";done; true ; } > /tmp/_build/host.ember
+            wc -w /tmp/_build/host.ember | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'host.ember'
+  node20-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/host.ember 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  pnl_protocol:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Record centrifuge rotor weights
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; echo yes >/var/tmp/j2.tmp && du -h /var/tmp/j2.tmp; true ; } > /tmp/_build/emberLazy
+            wc -w /tmp/_build/emberLazy | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'emberLazy'
+  PROD_CHECK_8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/DRIFT_CLUSTER_TEAL_GOLDEN 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+  promptExpandInputInternal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: 920 notification
+          command: |
+            mkdir -p /tmp/_build
+            { set +o pipefail 2>/dev/null; echo "don't panic" | cksum; true ; } > /tmp/_build/stone211
+            wc -w /tmp/_build/stone211 | awk '{print "w2:",$1}'
+      - persist_to_workspace:
+          root: /tmp/_build
+          paths:
+            - 'stone211'
+  rc-v8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/_build
+      - run:
+          name: Grab upstream state
+          command: |
+            sed -n '1~2p' /tmp/_build/stone211 2>/dev/null | wc -l || true
+      - run:
+          name: Grab repository
+          command: git clone --quiet --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Expand sources
+          command: tar -xjf manifest.tar.bz2
+      - run:
+          name: Stabilize
+          command: uptime
+      - run:
+          command: g++ --version
+      - run:
+          name: Finalize build
+          command: sleep 45
+      - run:
+          command: exec ./adapter
+
+workflows:
+  release:
+    jobs:
+      - Plugin-Gradient-Email
+      - textarea--left
+      - sanity:
+          requires:
+            - Plugin-Gradient-Email
+            - textarea--left
+      - titan2-v2:
+          requires:
+            - Plugin-Gradient-Email
+            - textarea--left
+      - fix-metrics-leak:
+          requires:
+            - Plugin-Gradient-Email
+            - textarea--left
+      - ValueFunc
+      - node20-test:
+          requires:
+            - ValueFunc
+      - inv_pi:
+          requires:
+            - ValueFunc
+      - Deploy_Image4:
+          requires:
+            - inv_pi
+      - HQgBlkPxxJ6:
+          requires:
+            - inv_pi
+      - andromeda-rc:
+          requires:
+            - HQgBlkPxxJ6
+      - cube_register:
+          requires:
+            - HQgBlkPxxJ6
+      - sep4-release:
+          requires:
+            - cube_register
+      - store_lts_i386
+      - FlatLabelController
+      - java17-cov:
+          requires:
+            - store_lts_i386
+            - FlatLabelController
+      - produce-quick-release-candidate:
+          requires:
+            - store_lts_i386
+            - FlatLabelController
+      - verify-production-test-matrix:
+          requires:
+            - store_lts_i386
+            - FlatLabelController
+      - auh-check:
+          requires:
+            - store_lts_i386
+            - FlatLabelController
+      - promptExpandInputInternal
+      - edge55-north
+      - ms321
+      - rc-v8:
+          requires:
+            - promptExpandInputInternal
+            - edge55-north
+            - ms321
+      - fire-up:
+          requires:
+            - promptExpandInputInternal
+            - edge55-north
+            - ms321
+      - fix-webhook-reload:
+          requires:
+            - promptExpandInputInternal
+            - edge55-north
+            - ms321
+      - STG_DEPLOY_9:
+          requires:
+            - promptExpandInputInternal
+            - edge55-north
+            - ms321
+      - ManagerCubeDeep
+      - CORE-788:
+          requires:
+            - ManagerCubeDeep
+      - DATABASE_PASSWORD:
+          requires:
+            - ManagerCubeDeep
+      - py310-fmt:
+          requires:
+            - DATABASE_PASSWORD
+      - LS-PTR-C:
+          requires:
+            - DATABASE_PASSWORD
+      - vb:
+          requires:
+            - LS-PTR-C
+      - Global-Pointer:
+          requires:
+            - LS-PTR-C
+      - bun-bench:
+          requires:
+            - Global-Pointer
+      - func_syn:
+          requires:
+            - Global-Pointer
+      - VERIFY_DEV:
+          requires:
+            - func_syn
+      - mx-test-b:
+          requires:
+            - func_syn
+      - CORE-949:
+          requires:
+            - mx-test-b
+      - SPRINT_202608:
+          requires:
+            - mx-test-b
+      - tango-4:
+          requires:
+            - SPRINT_202608
+      - pause_max
+      - Write-Arg
+      - build-partial-test-matrix:
+          requires:
+            - pause_max
+            - Write-Arg
+      - rip-it:
+          requires:
+            - pause_max
+            - Write-Arg
+      - PROD_CHECK_8:
+          requires:
+            - pause_max
+            - Write-Arg
+      - STG_STAGE_4:
+          requires:
+            - pause_max
+            - Write-Arg
+      - run-nightly-release-candidate:
+          requires:
+            - pause_max
+            - Write-Arg
+      - alice-build:
+          requires:
+            - pause_max
+            - Write-Arg
+      - sm-3:
+          requires:
+            - pause_max
+            - Write-Arg
+      - check-staging-docker-image:
+          requires:
+            - pause_max
+            - Write-Arg
